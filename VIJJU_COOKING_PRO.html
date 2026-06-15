@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VIJJU COOKING PRO</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial;background:#fff7f0}
+#loader{position:fixed;inset:0;background:#ff6b35;color:#fff;display:flex;justify-content:center;align-items:center;font-size:40px;animation:fade 3s forwards;z-index:9999}
+@keyframes fade{80%{opacity:1}100%{opacity:0;visibility:hidden}}
+header{background:linear-gradient(45deg,#ff6b35,#ff914d);padding:30px;color:white;text-align:center}
+#search{width:90%;max-width:600px;padding:12px;border-radius:30px;border:none;margin-top:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:20px}
+.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.15);transition:.3s;cursor:pointer}
+.card:hover{transform:translateY(-8px) scale(1.03)}
+.card img{width:100%;height:180px;object-fit:cover}
+.card h3{padding:12px;text-align:center}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75)}
+.box{background:white;width:90%;max-width:700px;margin:5% auto;padding:20px;border-radius:15px;max-height:80vh;overflow:auto}
+button{padding:10px 20px;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="loader">VIJJU COOKING</div>
+
+<header>
+<h1>VIJJU COOKING PRO</h1>
+<p>60 Recipes • Animations • Search • Photo Gallery</p>
+<input id="search" placeholder="Search recipes..." onkeyup="filterRecipes()">
+</header>
+
+<div class="grid" id="grid">
+    <div class="card" onclick="openRecipe(0)">
+      <img src="https://source.unsplash.com/400x300/?Chicken%20Biryani,food" alt="Chicken Biryani">
+      <h3>Chicken Biryani</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(1)">
+      <img src="https://source.unsplash.com/400x300/?Veg%20Biryani,food" alt="Veg Biryani">
+      <h3>Veg Biryani</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(2)">
+      <img src="https://source.unsplash.com/400x300/?Masala%20Dosa,food" alt="Masala Dosa">
+      <h3>Masala Dosa</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(3)">
+      <img src="https://source.unsplash.com/400x300/?Idli,food" alt="Idli">
+      <h3>Idli</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(4)">
+      <img src="https://source.unsplash.com/400x300/?Vada,food" alt="Vada">
+      <h3>Vada</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(5)">
+      <img src="https://source.unsplash.com/400x300/?Pongal,food" alt="Pongal">
+      <h3>Pongal</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(6)">
+      <img src="https://source.unsplash.com/400x300/?Upma,food" alt="Upma">
+      <h3>Upma</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(7)">
+      <img src="https://source.unsplash.com/400x300/?Puri,food" alt="Puri">
+      <h3>Puri</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(8)">
+      <img src="https://source.unsplash.com/400x300/?Chole%20Bhature,food" alt="Chole Bhature">
+      <h3>Chole Bhature</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(9)">
+      <img src="https://source.unsplash.com/400x300/?Paneer%20Butter%20Masala,food" alt="Paneer Butter Masala">
+      <h3>Paneer Butter Masala</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(10)">
+      <img src="https://source.unsplash.com/400x300/?Butter%20Chicken,food" alt="Butter Chicken">
+      <h3>Butter Chicken</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(11)">
+      <img src="https://source.unsplash.com/400x300/?Sambar,food" alt="Sambar">
+      <h3>Sambar</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(12)">
+      <img src="https://source.unsplash.com/400x300/?Rasam,food" alt="Rasam">
+      <h3>Rasam</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(13)">
+      <img src="https://source.unsplash.com/400x300/?Tomato%20Rice,food" alt="Tomato Rice">
+      <h3>Tomato Rice</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(14)">
+      <img src="https://source.unsplash.com/400x300/?Lemon%20Rice,food" alt="Lemon Rice">
+      <h3>Lemon Rice</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(15)">
+      <img src="https://source.unsplash.com/400x300/?Curd%20Rice,food" alt="Curd Rice">
+      <h3>Curd Rice</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(16)">
+      <img src="https://source.unsplash.com/400x300/?Fried%20Rice,food" alt="Fried Rice">
+      <h3>Fried Rice</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(17)">
+      <img src="https://source.unsplash.com/400x300/?Noodles,food" alt="Noodles">
+      <h3>Noodles</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(18)">
+      <img src="https://source.unsplash.com/400x300/?Aloo%20Gobi,food" alt="Aloo Gobi">
+      <h3>Aloo Gobi</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(19)">
+      <img src="https://source.unsplash.com/400x300/?Palak%20Paneer,food" alt="Palak Paneer">
+      <h3>Palak Paneer</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(20)">
+      <img src="https://source.unsplash.com/400x300/?Dal%20Tadka,food" alt="Dal Tadka">
+      <h3>Dal Tadka</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(21)">
+      <img src="https://source.unsplash.com/400x300/?Rajma,food" alt="Rajma">
+      <h3>Rajma</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(22)">
+      <img src="https://source.unsplash.com/400x300/?Gulab%20Jamun,food" alt="Gulab Jamun">
+      <h3>Gulab Jamun</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(23)">
+      <img src="https://source.unsplash.com/400x300/?Rasgulla,food" alt="Rasgulla">
+      <h3>Rasgulla</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(24)">
+      <img src="https://source.unsplash.com/400x300/?Jalebi,food" alt="Jalebi">
+      <h3>Jalebi</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(25)">
+      <img src="https://source.unsplash.com/400x300/?Kheer,food" alt="Kheer">
+      <h3>Kheer</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(26)">
+      <img src="https://source.unsplash.com/400x300/?Payasam,food" alt="Payasam">
+      <h3>Payasam</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(27)">
+      <img src="https://source.unsplash.com/400x300/?Poha,food" alt="Poha">
+      <h3>Poha</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(28)">
+      <img src="https://source.unsplash.com/400x300/?Paratha,food" alt="Paratha">
+      <h3>Paratha</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(29)">
+      <img src="https://source.unsplash.com/400x300/?Chapati,food" alt="Chapati">
+      <h3>Chapati</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(30)">
+      <img src="https://source.unsplash.com/400x300/?Fish%20Curry,food" alt="Fish Curry">
+      <h3>Fish Curry</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(31)">
+      <img src="https://source.unsplash.com/400x300/?Prawn%20Fry,food" alt="Prawn Fry">
+      <h3>Prawn Fry</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(32)">
+      <img src="https://source.unsplash.com/400x300/?Mutton%20Curry,food" alt="Mutton Curry">
+      <h3>Mutton Curry</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(33)">
+      <img src="https://source.unsplash.com/400x300/?Egg%20Curry,food" alt="Egg Curry">
+      <h3>Egg Curry</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(34)">
+      <img src="https://source.unsplash.com/400x300/?Omelette,food" alt="Omelette">
+      <h3>Omelette</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(35)">
+      <img src="https://source.unsplash.com/400x300/?Chicken%20Fry,food" alt="Chicken Fry">
+      <h3>Chicken Fry</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(36)">
+      <img src="https://source.unsplash.com/400x300/?Pakora,food" alt="Pakora">
+      <h3>Pakora</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(37)">
+      <img src="https://source.unsplash.com/400x300/?Mirchi%20Bajji,food" alt="Mirchi Bajji">
+      <h3>Mirchi Bajji</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(38)">
+      <img src="https://source.unsplash.com/400x300/?Samosa,food" alt="Samosa">
+      <h3>Samosa</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(39)">
+      <img src="https://source.unsplash.com/400x300/?Cutlet,food" alt="Cutlet">
+      <h3>Cutlet</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(40)">
+      <img src="https://source.unsplash.com/400x300/?Pav%20Bhaji,food" alt="Pav Bhaji">
+      <h3>Pav Bhaji</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(41)">
+      <img src="https://source.unsplash.com/400x300/?Bhel%20Puri,food" alt="Bhel Puri">
+      <h3>Bhel Puri</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(42)">
+      <img src="https://source.unsplash.com/400x300/?Dhokla,food" alt="Dhokla">
+      <h3>Dhokla</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(43)">
+      <img src="https://source.unsplash.com/400x300/?Thepla,food" alt="Thepla">
+      <h3>Thepla</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(44)">
+      <img src="https://source.unsplash.com/400x300/?Khichdi,food" alt="Khichdi">
+      <h3>Khichdi</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(45)">
+      <img src="https://source.unsplash.com/400x300/?Veg%20Pulao,food" alt="Veg Pulao">
+      <h3>Veg Pulao</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(46)">
+      <img src="https://source.unsplash.com/400x300/?Mushroom%20Curry,food" alt="Mushroom Curry">
+      <h3>Mushroom Curry</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(47)">
+      <img src="https://source.unsplash.com/400x300/?Corn%20Soup,food" alt="Corn Soup">
+      <h3>Corn Soup</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(48)">
+      <img src="https://source.unsplash.com/400x300/?Manchurian,food" alt="Manchurian">
+      <h3>Manchurian</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(49)">
+      <img src="https://source.unsplash.com/400x300/?Spring%20Rolls,food" alt="Spring Rolls">
+      <h3>Spring Rolls</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(50)">
+      <img src="https://source.unsplash.com/400x300/?Halwa,food" alt="Halwa">
+      <h3>Halwa</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(51)">
+      <img src="https://source.unsplash.com/400x300/?Laddu,food" alt="Laddu">
+      <h3>Laddu</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(52)">
+      <img src="https://source.unsplash.com/400x300/?Kesari,food" alt="Kesari">
+      <h3>Kesari</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(53)">
+      <img src="https://source.unsplash.com/400x300/?Coconut%20Chutney,food" alt="Coconut Chutney">
+      <h3>Coconut Chutney</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(54)">
+      <img src="https://source.unsplash.com/400x300/?Peanut%20Chutney,food" alt="Peanut Chutney">
+      <h3>Peanut Chutney</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(55)">
+      <img src="https://source.unsplash.com/400x300/?Tamarind%20Rice,food" alt="Tamarind Rice">
+      <h3>Tamarind Rice</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(56)">
+      <img src="https://source.unsplash.com/400x300/?Gobi%20Manchurian,food" alt="Gobi Manchurian">
+      <h3>Gobi Manchurian</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(57)">
+      <img src="https://source.unsplash.com/400x300/?Pizza,food" alt="Pizza">
+      <h3>Pizza</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(58)">
+      <img src="https://source.unsplash.com/400x300/?Burger,food" alt="Burger">
+      <h3>Burger</h3>
+    </div>
+    
+    <div class="card" onclick="openRecipe(59)">
+      <img src="https://source.unsplash.com/400x300/?Sandwich,food" alt="Sandwich">
+      <h3>Sandwich</h3>
+    </div>
+    </div>
+
+<div id="modal">
+<div class="box">
+<h2 id="title"></h2>
+<h3>Ingredients</h3>
+<p id="ingredients"></p><br>
+<h3>How To Make</h3>
+<p id="method"></p>
+<button onclick="closeRecipe()">Close</button>
+</div>
+</div>
+
+<script>
+const recipes=[{'name': 'Chicken Biryani', 'ingredients': 'Main ingredients required for Chicken Biryani', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Veg Biryani', 'ingredients': 'Main ingredients required for Veg Biryani', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Masala Dosa', 'ingredients': 'Main ingredients required for Masala Dosa', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Idli', 'ingredients': 'Main ingredients required for Idli', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Vada', 'ingredients': 'Main ingredients required for Vada', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Pongal', 'ingredients': 'Main ingredients required for Pongal', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Upma', 'ingredients': 'Main ingredients required for Upma', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Puri', 'ingredients': 'Main ingredients required for Puri', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Chole Bhature', 'ingredients': 'Main ingredients required for Chole Bhature', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Paneer Butter Masala', 'ingredients': 'Main ingredients required for Paneer Butter Masala', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Butter Chicken', 'ingredients': 'Main ingredients required for Butter Chicken', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Sambar', 'ingredients': 'Main ingredients required for Sambar', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Rasam', 'ingredients': 'Main ingredients required for Rasam', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Tomato Rice', 'ingredients': 'Main ingredients required for Tomato Rice', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Lemon Rice', 'ingredients': 'Main ingredients required for Lemon Rice', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Curd Rice', 'ingredients': 'Main ingredients required for Curd Rice', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Fried Rice', 'ingredients': 'Main ingredients required for Fried Rice', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Noodles', 'ingredients': 'Main ingredients required for Noodles', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Aloo Gobi', 'ingredients': 'Main ingredients required for Aloo Gobi', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Palak Paneer', 'ingredients': 'Main ingredients required for Palak Paneer', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Dal Tadka', 'ingredients': 'Main ingredients required for Dal Tadka', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Rajma', 'ingredients': 'Main ingredients required for Rajma', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Gulab Jamun', 'ingredients': 'Main ingredients required for Gulab Jamun', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Rasgulla', 'ingredients': 'Main ingredients required for Rasgulla', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Jalebi', 'ingredients': 'Main ingredients required for Jalebi', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Kheer', 'ingredients': 'Main ingredients required for Kheer', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Payasam', 'ingredients': 'Main ingredients required for Payasam', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Poha', 'ingredients': 'Main ingredients required for Poha', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Paratha', 'ingredients': 'Main ingredients required for Paratha', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Chapati', 'ingredients': 'Main ingredients required for Chapati', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Fish Curry', 'ingredients': 'Main ingredients required for Fish Curry', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Prawn Fry', 'ingredients': 'Main ingredients required for Prawn Fry', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Mutton Curry', 'ingredients': 'Main ingredients required for Mutton Curry', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Egg Curry', 'ingredients': 'Main ingredients required for Egg Curry', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Omelette', 'ingredients': 'Main ingredients required for Omelette', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Chicken Fry', 'ingredients': 'Main ingredients required for Chicken Fry', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Pakora', 'ingredients': 'Main ingredients required for Pakora', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Mirchi Bajji', 'ingredients': 'Main ingredients required for Mirchi Bajji', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Samosa', 'ingredients': 'Main ingredients required for Samosa', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Cutlet', 'ingredients': 'Main ingredients required for Cutlet', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Pav Bhaji', 'ingredients': 'Main ingredients required for Pav Bhaji', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Bhel Puri', 'ingredients': 'Main ingredients required for Bhel Puri', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Dhokla', 'ingredients': 'Main ingredients required for Dhokla', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Thepla', 'ingredients': 'Main ingredients required for Thepla', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Khichdi', 'ingredients': 'Main ingredients required for Khichdi', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Veg Pulao', 'ingredients': 'Main ingredients required for Veg Pulao', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Mushroom Curry', 'ingredients': 'Main ingredients required for Mushroom Curry', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Corn Soup', 'ingredients': 'Main ingredients required for Corn Soup', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Manchurian', 'ingredients': 'Main ingredients required for Manchurian', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Spring Rolls', 'ingredients': 'Main ingredients required for Spring Rolls', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Halwa', 'ingredients': 'Main ingredients required for Halwa', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Laddu', 'ingredients': 'Main ingredients required for Laddu', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Kesari', 'ingredients': 'Main ingredients required for Kesari', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Coconut Chutney', 'ingredients': 'Main ingredients required for Coconut Chutney', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Peanut Chutney', 'ingredients': 'Main ingredients required for Peanut Chutney', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Tamarind Rice', 'ingredients': 'Main ingredients required for Tamarind Rice', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Gobi Manchurian', 'ingredients': 'Main ingredients required for Gobi Manchurian', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Pizza', 'ingredients': 'Main ingredients required for Pizza', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Burger', 'ingredients': 'Main ingredients required for Burger', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}, {'name': 'Sandwich', 'ingredients': 'Main ingredients required for Sandwich', 'method': 'Prepare ingredients, cook according to recipe, garnish and serve hot.'}];
+
+function openRecipe(i){
+document.getElementById('title').innerText=recipes[i].name;
+document.getElementById('ingredients').innerText=recipes[i].ingredients;
+document.getElementById('method').innerText=recipes[i].method;
+document.getElementById('modal').style.display='block';
+}
+
+function closeRecipe(){document.getElementById('modal').style.display='none';}
+
+function filterRecipes(){
+let v=document.getElementById('search').value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(v)?'block':'none';
+});
+}
+</script>
+</body>
+</html>
